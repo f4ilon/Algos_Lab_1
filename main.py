@@ -5,22 +5,13 @@ from bench import Bench
 from functions import *
 
 
-def x2_gen(i: int, n: int) -> list[int]:
-    return [i *(2**x)  for x in range(n)]
-
-def x1d5_gen(i: int, n: int) -> list[int]:
-    return [int(i *(1.5**x))  for x in range(n)]
-
 def plusx_gen(i: int, n: int) -> list[int]:
     return [i * x  for x in range(1, n+1)]
 
-
-
 # Обёртка с фиксированным ключом
 def f04(arr: List[int]) -> int:
-    key = arr[len(arr) // 2]  # ищем элемент в середине
+    key = int(len(arr) * 0.7)
     return f04_lower_bound(arr, key)
-
 
 # Обёртка: Тройка НЕ существует
 def f24_three_sum_not_found(arr: List[int]) -> bool:
@@ -31,24 +22,16 @@ def f24_three_sum_not_found(arr: List[int]) -> bool:
     return f24_three_sum_bsearch(arr, target)
 
 
-# Обёртка:
-def subset_sum(arr: List[int]) -> bool:
-    target = 190
-    return f28_subset_sum(arr, target)
-
-
 if __name__ == "__main__":    
-    # f04_lower_bound
-    sorted_data = list(range(1_000_003))
+    sorted_data = list(range(1_000_000))
     random_data = [random.randint(1, 1_000_000) for _ in range(1_000_000)]
-    print("f04_lower_bound: O(log n)")
-    # Создаём отсортированный массив
-    
+
+    # f04_lower_bound
+    print("f04_lower_bound: O(log n)")    
     results_f04 = Bench.this(
         func=f04,
         data=sorted_data,
         repeats=100,
-        #scale_sizes=x2_gen(100, 10),
         scale_sizes=plusx_gen(1000, 20),
     )
     print("\n")
@@ -79,7 +62,7 @@ if __name__ == "__main__":
         func=f16_heap_sort,
         data=random_data,
         repeats=20,
-        scale_sizes=plusx_gen(1000, 20),
+        scale_sizes=plusx_gen(100, 20),
     )
     print("\n")
 

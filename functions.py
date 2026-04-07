@@ -103,21 +103,3 @@ def f24_three_sum_bsearch(a: List[int], target: int) -> bool:
                     hi = m - 1
     return False
 
-
-# 28. Задача о сумме подмножеств (subset sum), рекурсия
-#
-#  Для каждого элемента два варианта: включить или нет.
-#  Дерево решений имеет 2^n листьев ⇒ O(2^n).
-def _ss_rec(a: List[int], i: int, rem: int) -> bool:
-    if rem == 0:
-        return True   # нашли подмножество
-    if i < 0:
-        return False  # элементы кончились
-    # включаем a[i] ИЛИ не включаем
-    if _ss_rec(a, i - 1, rem - a[i]):
-        return True
-    return _ss_rec(a, i - 1, rem)
-
-
-def f28_subset_sum(a: List[int], target: int) -> bool:
-    return _ss_rec(a, len(a) - 1, target)
