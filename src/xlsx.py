@@ -1,9 +1,14 @@
 from openpyxl import load_workbook
 from openpyxl.chart import ScatterChart, Reference, Series
 from openpyxl.chart.marker import Marker
+import os
 
 
-filename = "filet.xlsx"
+script_path = os.path.abspath(__file__)
+script_dir = os.path.dirname(script_path)
+parent_dir = os.path.dirname(script_dir) 
+
+filename = os.path.join(parent_dir, 'file.xlsx')
 wb = load_workbook(filename)
 
 def save_results(results, sheetname):
